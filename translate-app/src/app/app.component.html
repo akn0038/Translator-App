@@ -1,0 +1,39 @@
+<div class="container">
+  <h1> Translator App</h1>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+
+    <div class="form-group">
+      <label for="file">Choose CSV file</label>
+      <input type="file" #csvReader formControlName="file" name="Upload CSV" id="txtFileUpload"
+        (change)="uploadListener($event)" accept=".csv" />
+
+    </div>
+
+    <div class="form-group">
+      <label for="lang">Select Language:</label>
+      <select formControlName="lang" class="form-control">
+        <option disabled>Select Language</option>
+        <option *ngFor="let lang of languages;let i=index" value="{{languages[i].code}}">{{lang.lang}}</option>
+      </select>
+    </div>
+
+    <button class="btn btn-primary" type="submit" [disabled]="!form.valid">Submit</button>
+  </form>
+  <table class="minimalistBlack" *ngIf="show">
+    <thead>
+      <tr>
+        <th *ngFor="let header of headers">{{header}} </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let record of records;let i = index;">
+        <td> <span>{{record.phone}}</span> </td>
+        <td> <span>{{record.name}}</span> </td>
+        <td> <span>{{record.state}}</span> </td>
+        <td> <span>{{record.district}}</span> </td>
+        <td> <span>{{record.village}}</span> </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
